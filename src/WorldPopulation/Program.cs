@@ -11,8 +11,8 @@ namespace WorldPopulation
       CsvReader reader = new CsvReader(filePath);
 
       Console.WriteLine("Welcome! Please choose one of the options, or type anything else to quit.");
-      Console.WriteLine("1. List the n most populous contries in the list");
-      Console.WriteLine("2. List all contries in the list");
+      Console.WriteLine("1. List the n most populous countries in the list");
+      Console.WriteLine("2. List all countries in the list");
       Console.WriteLine("3. Find country population by country code");
 
       string input = Console.ReadLine();
@@ -34,7 +34,27 @@ namespace WorldPopulation
           countriesList.Insert(lilliputIndex, lilliput);
           countriesList.RemoveAt(lilliputIndex);
 
-          PopulationFormatter.PrintCountries(countriesList);
+          int maxToDisplay;
+          while (true)
+          {
+            Console.Write("Enter the number of countries to display: ");
+            bool inputIsInt = int.TryParse(Console.ReadLine(), out maxToDisplay);
+            if (!inputIsInt || maxToDisplay <= 0)
+              Console.WriteLine("You must type in a positive integer.");
+            else
+              break;
+          }
+          for (int i = 0; i < countriesList.Count; i++)
+          {
+            if (i > 0 && (i % maxToDisplay == 0))
+            {
+              Console.WriteLine("Hit return to continue, or anything else to quit");
+              if (Console.ReadLine() != "")
+                break;
+            }
+            Country countryFromList = countriesList[i];
+            Console.WriteLine($"{PopulationFormatter.FormatPopulation(countryFromList.Population).PadLeft(15)}: {countryFromList.Name}");
+          }
 
           break;
 
