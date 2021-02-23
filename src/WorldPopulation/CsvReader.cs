@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace WorldPopulation
@@ -11,8 +12,21 @@ namespace WorldPopulation
       _csvFilePath = csvFilePath;
     }
 
-    public Country[] ReadFirstNCountries(int nCountries)
+    public Country[] ReadFirstNCountries()
     {
+      int nCountries;
+      while (true)
+      {
+        Console.WriteLine("How many countries would you like to read?");
+        string input = Console.ReadLine();
+        var isInt = int.TryParse(input, out nCountries);
+        if (!isInt)
+        {
+          Console.WriteLine("Invalid input.");
+        }
+        else break;
+      }
+
       Country[] countries = new Country[nCountries];
 
       using (StreamReader sr = new StreamReader(_csvFilePath))

@@ -9,12 +9,27 @@ namespace WorldPopulation
       string filePath = @"../../population-data.csv";
       CsvReader reader = new CsvReader(filePath);
 
-      Country[] countries = reader.ReadFirstNCountries(10);
+      Console.WriteLine("Welcome! Please choose one of the options, or type anything else to quit.");
+      Console.WriteLine("1. List the n most populous contries in the list");
 
-      foreach (Country country in countries)
+      string input = Console.ReadLine();
+      Console.WriteLine("");
+
+      switch (input)
       {
-        Console.WriteLine($"{PopulationFormatter.FormatPopulation(country.Population).PadLeft(15)}: {country.Name}");
+        case "1":
+          Country[] countries = reader.ReadFirstNCountries();
+          foreach (Country country in countries)
+          {
+            Console.WriteLine($"{PopulationFormatter.FormatPopulation(country.Population).PadLeft(15)}: {country.Name}");
+          }
+          break;
+
+        default:
+          break;
       }
+
+
     }
   }
 }
