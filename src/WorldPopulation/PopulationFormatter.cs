@@ -55,13 +55,5 @@ namespace WorldPopulation
       }
       return result;
     }
-
-    public static void PrintCountries(IList<Country> countries)
-    {
-      foreach (Country country in countries)
-      {
-        Console.WriteLine($"{PopulationFormatter.FormatPopulation(country.Population).PadLeft(15)}: {country.Name}");
-      }
-    }
   }
 }
